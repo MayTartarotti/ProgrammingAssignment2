@@ -1,0 +1,31 @@
+##first: make a function taht creates a special "matrix" object that can cache its inverse.
+
+makeCacheMatrix <- function(x = matrix()) {
+  a <- NULL
+  set <- function(fuc){
+    x <<- fuc
+    a <<- NULL
+  }
+  get <- function()x
+  setInverse <- function(inverse) a <<- inverse
+  getInverse <- function() a 
+  list(set = set, get = get, 
+       setInverse = setInverse, 
+       getInverse = getInverse)
+}
+
+##Now that we creat our matrix, we can create a function which computes the 
+##inverse of the special "matrix", the function cacheSolve
+
+cacheSolve <- function(x, ...) {
+## This function will return a matrix that is the inverse of my original matrix 'x'
+  a <- x$getInverse()
+  if(!is.null(a)){
+    return(a)
+  }
+  mat <- x$get()
+  a <- solve(mat,...)
+  x$setInverse(a)
+  a
+}
+## If every thing It is all right, the program will do ok!
